@@ -1,9 +1,18 @@
 <% @page_name = 'chat' -%>
-<div id="scroll">
-<br>
-A lot of output..assssssssssssss 
-</br>
+<span id="chat_name"></span>
+<div id="chat_scroll">
+	@Paco: Hola primo <br/>
+	@primo: hola paco <br/>
 </div>
-<br>
- <div id="w">
+<div id="chat_form">
+	<%=form_tag({ :controller => 'comment' , :action => 'new'}, :id => "formComment", :remote => true) do%>
+		    <div id="chat_block">				
+			    <%= hidden_field_tag  'tag_id', nil%>
+		    	<%= text_area_tag  'body', nil, :id => "chat_textarea", :class=> 'formComentContent', :placeholder => "#{t 'comentar.placeholder'}" %>
+		    	<%= submit_tag "&#59160;".html_safe, :id => "chat_buttom", :class => "entypo", :title => "#{t 'comentar.submit'}"%>
+	    	</div>
+			<div id="chat_muneco">		    	
+	    		<%= link_to image_tag( current_user.photo.url(:small)  , :alt => "Imagen de #{current_user.name}", :onError=> "this.src='/img/default.jpg';"), "/post/user/#{current_user.name}", :class => "linkRemote comment-muneco-photo" %>
+		    </div>
+	<% end %>
 </div>

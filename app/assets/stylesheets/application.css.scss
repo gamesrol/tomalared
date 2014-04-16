@@ -8,34 +8,40 @@ src: url('/fonts/pixl/Pixlpowr.ttf');
 /* Etiquetas generales */
 body
 { 
-  background: #BCBDAD url('/gfx/fondo7.svg');
+  background: #BCBDAD url('/gfx/bg1.svg');
   background-repeat:no-repeat;
   background-attachment:fixed;
-  background-position: center center;
+  background-size: 150% 150%;
+  background-position: center;
   color: #000;
 }
 
 img, .youtube
 {
-  border: solid 1px rgb(66,65,65)!important;  
+  border: solid 1px #ccc !important;  
 }
 
 a
 {
   color: white;  
-  font-weight: bold;  
+  font-weight: bold; 
+  cursor: pointer; 
 }
         /* Enlaces */
-a:hover, .mainPostContent a, .mainComentContent a, .mainNotiContent a, .board-white a, #board-block a, .text-quote a ,.text-link a, .user, .tag a, .tags-follow a
+.mainPostContent a, .mainComentContent a, .mainNotiContent a, .board-white a, #board-block a, .text-quote a ,.text-link a, .user, .tag a, .tags-follow a, #footer a
 {
-  color: #459E00;
+  color: rgb(97, 115, 128) !important;
+}
+
+a:hover{
+  color: rgb(51, 51, 51) !important;
 }
 
       /* Fondos blancos */
 .mainNotiContent, .formComentContent, #board-mention, #archivo, #board-block, #board-block li, .board-white, .ui-widget-header
 {
   background: #F0F0F0 !important;
-  border:solid 1px #BBBBBB;  
+  border:solid 1px #ccc;  
 }
 
       /* Fuente botones y Fuentes _board */
@@ -53,7 +59,7 @@ a:hover, .mainPostContent a, .mainComentContent a, .mainNotiContent a, .board-wh
 
 #photo-recorte img
 {
-  border:1px solid #BBBBBB !important;
+  border:1px solid #ccc !important;
 }
 
 #q
@@ -117,7 +123,7 @@ input[type='text'], input[type='password'], #q
   height: 150px;
   width: 208px;
   top: 0px;
-  border: solid 1px gray;  
+  border: solid 1px #ccc;  
   -webkit-box-sizing: border-box; 
   -moz-box-sizing: border-box;    
   box-sizing: border-box;
@@ -171,12 +177,15 @@ input[type='text'], input[type='password'], #q
 .topbar
 {
   position :fixed;
-  z-index: 1030;
-  background-color: rgba(34, 0, 34, 0.84);  
+  z-index: 1000;
+  background-color: rgba(97, 115, 128, 0.84);  
   box-shadow: 0px 0px 6px 2px #283327;
   min-width: 100%;
   font-size: 12px;
   height: 45px;
+}
+.entypo{
+  font-family: entypo !important;
 }
 
 #search
@@ -194,7 +203,7 @@ input[type='text'], input[type='password'], #q
 
 .usersboard:hover
 {
-  color: gray !important;
+  color: rgb(51, 51, 51) !important;
 }
 
 #board-notifi li
@@ -260,7 +269,7 @@ input[type='text'], input[type='password'], #q
 .condiciones
 {
   display: none;
-  border: 1px solid #BBBBBB;
+  border: 1px solid #ccc;
   background: #FAFAF4;   
   width: 90%;
   margin: 0 auto;
@@ -277,7 +286,7 @@ input[type='text'], input[type='password'], #q
 .cerrar-condiciones
 {
   float: right;
-  border: 1px solid #BBBBBB;
+  border: 1px solid #ccc;
   background: black;  
   margin: 4px;
   padding: 2px;
@@ -302,7 +311,7 @@ input[type='text'], input[type='password'], #q
   width: 3%;
   float: right;  
   padding-top: 0px;
-  margin-right: 1%;
+  margin: 1%;
 }
 
 .mainNotiContent
@@ -531,11 +540,12 @@ a.borrarPost, a.borrarComentario , a.iconUnshare
 
 .textarea
 {
-  width: 422px;
+  width: 441px;
+  margin-right: 5px;
   float: right;
   height: 111px;
   padding: 3px;
-  border-bottom: 1px solid #bbb;
+  border: 1px solid #ccc;
 }
 
 #tumblear
@@ -545,6 +555,8 @@ a.borrarPost, a.borrarComentario , a.iconUnshare
   padding: 5px !important;
   padding-top: 7px !important;
   font-family: entypo;  
+  width: 100px;
+  margin: 5px;
 }
 
 .comentar
@@ -561,11 +573,10 @@ a.borrarPost, a.borrarComentario , a.iconUnshare
 
 #menu-tumblear
 {
-  border: 1px solid #bbb;
+  border: 1px solid rgba(187, 187, 187, 0);
   display: block;
-  margin-top: 20px;
-  padding-bottom: 3px;
-  background: white;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .menu-comentar
@@ -573,7 +584,7 @@ a.borrarPost, a.borrarComentario , a.iconUnshare
   display: block;  
   width: 91%;  
   float: right;
-  margin-right: 1%;
+  margin: 5px;
   height: 52px;
 }
 
@@ -585,13 +596,14 @@ a.borrarPost, a.borrarComentario , a.iconUnshare
 .ui-dialog
 {
   display: table;  
-  background-color: rgba(34, 0, 34, 0.84) !important;
+  background-color: rgba(204, 204, 204, 0.84) !important;
   box-shadow: 0px 0px 6px 2px #283327;
   padding: 0px;
   margin: 0px; 
   position: fixed;
   left: 0%;
   top: 10%;
+  z-index: 1050;
 }
 
 .counter
@@ -605,19 +617,16 @@ a.borrarPost, a.borrarComentario , a.iconUnshare
   background: none;
 }
 
-#muneco
-{ 
-  border-bottom: solid 1px #BBBBBB;  
-}
-
 #cabeceraMuneco{
-  background-color: rgba(34, 0, 34, 0.84);
-  box-shadow: 0px 0px 6px 2px #283327;
+  background-color: rgba(204, 204, 204, 0.84);
+  //box-shadow: 0px 0px 6px 2px #283327;
+  width: 98%;
+  margin-left: 5px;
+  margin-bottom: 10px;  
 }
 
 #muneco-user
 { 
-  border-bottom: solid 1px white;  
   min-height: 200px; 
   color: #fff;
   text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
@@ -626,20 +635,10 @@ a.borrarPost, a.borrarComentario , a.iconUnshare
 
 #muneco-group
 { 
-  border-bottom: solid 1px white;
   min-height: 72px; 
   color: #fff;
   text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
   padding: 5px;
-}
-
-#save
-{
-  position: relative;
-  top: -20px;
-  display: table;  
-  width: 100%;  
-  margin-left: 0px; 
 }
 
 .postCommentsVote
@@ -654,6 +653,9 @@ div #form-new
   width: 100% !important;
   min-height: 0px !important;
   height: auto !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  display: block;
 }
 
 .mediano-muneco
@@ -694,7 +696,7 @@ div #form-new
 .post
 {
   display: table;
-  background-color: rgba(34, 0, 34, 0.84);
+  background-color: rgba(204, 204, 204, 0.84);
   box-shadow: 0px 0px 6px 2px #283327;
   width: 98%;
   margin: 5px;
@@ -718,7 +720,7 @@ div #form-new
   margin-bottom: 5px;
   width: 100%;
   background: rgba(255,255,255,0.9);
-  border: 1px solid gray;
+  border: 1px solid #ccc;
 }
 
 
@@ -752,8 +754,6 @@ div #form-new
   padding-top: 25px;
   overflow: hidden;  
 }
-
-
 
 #main
 {
@@ -827,7 +827,7 @@ div #form-new
   width: 97%;
   height: 28px;  
   border: 0px;
-  border: 1px solid #bbb;
+  border: 1px solid #ccc;
   padding-top: 4px;
   padding-left: 4px;
 }  
@@ -874,7 +874,7 @@ div #form-new
   line-height: 1.5em;  
 }
 
-.mainPostContent a:hover, .mainComentContent a:hover, .mainNotiContent a:hover
+.mainPostContent a:hover, .mainComentContent a:hover, .mainNotiContent a:hover, #footer a:hove
 { 
   color: black !important;
 }
@@ -910,12 +910,12 @@ div #form-new
   width: 100%;
   margin-top: 60px;
   margin-left: -20px;
-  color: white;
+  color: #333;
   padding: 15px;
   padding-top: 5px;
   padding-left: 20px;
   font-size: 0.6em;
-  background-color: rgba(34, 0, 34, 0.84);
+  background-color: rgba(204, 204, 204, 0.84);
   box-shadow: 0px 0px 6px 2px #283327;
   float: left;
 }
@@ -930,12 +930,12 @@ div #form-new
 }
 
 .aside a{
-  color: #459E00 !important;
+  color: rgb(97, 115, 128) !important;
   
 }
 
 .aside a:hover{
-  color: black !important;
+  color: rgb(51, 51, 51) !important;
 }
 .aside span{
   margin-left: 5px;
@@ -943,7 +943,7 @@ div #form-new
 
 .iconos_aside{
  float: right; 
- font-family: entypo;
+ font-family: entypo; 
 }
 
 .imagen_aside{
@@ -956,12 +956,59 @@ div #form-new
 }
 
 #chat{
-  position: fixed;  
-  margin-left: 152px;
-  width: 520px;
+  display: block;  
+  width: 100% !important;
   height: 380px;
-  border: 1px solid black;
-  background: white;  
+  padding: 5px !important;
+}
+
+#chat_scroll{
+  width: 100%;
+  background: white;
+  font-size: 13px;
+  height: 260px;  
+  border: 1px solid #ccc;
+}
+
+#chat_block
+{  
+  display: block;  
+  width: 91%;  
+  float: right;
+  margin-right: 5px;
+  height: 52px;
+}
+
+#chat_buttom
+{
+  width: 100px;
+  margin: 0px;  
+  margin-right: -5px;
+  float: right;
+  padding-top: 6px !important;
+  padding-left: 1px !important;
+  padding-right: 1px !important;
+  padding-bottom: 3px !important;
+  font-family: entypo;
+}
+
+
+#chat_textarea
+{
+  width: 101%;
+  height: 28px;  
+  border: 0px;
+  border: 1px solid #ccc;
+  padding-top: 4px;
+  padding-left: 4px;
+}  
+
+
+#chat_muneco
+{
+  width: 42px;
+  padding-top: 0px;
+  margin-top: 5px;
 }
 
 #footer
@@ -977,30 +1024,20 @@ div #form-new
   font-size: 9px;
   line-height: normal;
   z-index: 100;
-  background-color: rgba(34, 0, 34, 0.84);
+  background-color: rgba(204, 204, 204, 0.84);
   box-shadow: 0px 0px 6px 2px #283327;
 }
 
 .notification-list, .notification
 {
   margin-bottom: 4px;  
-  border: 1px solid gray;
+  border: 1px solid #ccc;
   background: rgba(255,255,255,0.9);
 }
 
 .notification a
 {
   color: #459E00
-}
-
-#footer a
-{
-  color: green;
-}
-
-#footer a:hover
-{
-  color:  black;
 }
 
 .endless_scroll_loader
@@ -1083,10 +1120,10 @@ div #form-new
   padding: 7px;
 }
 
-.searched a:hover, .titulo a:hover
+.searched a:hover, .titulo a:hover, .popbox a:hover
 {
  background: rgb(75, 83, 75);
- color: white;
+ color: white !important;
 }
 
 
@@ -1110,7 +1147,7 @@ div #form-new
   height: 0; 
   border-top: 12px solid transparent;
   border-bottom: 12px solid transparent; 
-  border-right:12px solid #fafaf4;  
+  border-right:12px solid #ccc;  
   z-index:1000;
 }
 
@@ -1130,7 +1167,7 @@ div #form-new
   height: 0; 
   border-top: 12px solid transparent;
   border-bottom: 13px solid transparent; 
-  border-right: 12px solid #fafaf4;   
+  border-right: 12px solid #ccc;   
   z-index:1000;
 }
 
@@ -1144,7 +1181,7 @@ div #form-new
   height: 0; 
   border-top: 12px solid transparent;
   border-bottom: 13px solid transparent; 
-  border-right: 12px solid #BBBBBB;   
+  border-right: 12px solid #ccc;   
   z-index:999;
 }
 
@@ -1158,7 +1195,7 @@ div #form-new
   height: 0; 
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent; 
-  border-right: 10px solid #fafaf4;
+  border-right: 10px solid #ccc;
   z-index:1000;   
 }
 
@@ -1167,7 +1204,7 @@ div #form-new
   margin-bottom: 6px;
   margin-top: 6px;
   padding: 5px;
-  border: solid 1px gray;
+  border: solid 1px #ccc;
 }
 
 
@@ -1204,7 +1241,7 @@ div #form-new
 
 .tag:hover, .user:hover
 {
-  color: black !important;
+  color: rgb(51, 51, 51) !important;
 }
 
 .notification-list
@@ -1293,7 +1330,7 @@ div #form-new
    width: 99px;
    float: left; 
    margin: 3px;
-   border: 1px solid gray;   
+   border: 1px solid #ccc;   
    overflow: hidden;
    padding: 3px;
    text-align: center;
@@ -1302,14 +1339,14 @@ div #form-new
 
 .tags-orden:hover
 {
-   border: 1px solid green;
+   border: 1px solid #ccc;
    background: #baf8ba;
 }
 
 .tags-photo
 {
   overflow: hidden;
-  border: 1px solid #BBBBBB;  
+  border: 1px solid #ccc;  
   width: 93px;  
   height: 93px;
   text-align: center;
@@ -1367,7 +1404,7 @@ div #form-new
         margin: 0px;
         display:block; 
         background: #FAFAF4;
-        border: 1px  solid #BBBBBB;
+        border: 1px  solid #ccc;
         border-bottom: none;             
 }
 
@@ -1376,7 +1413,7 @@ div #form-new
         margin:0;
         padding: 0;
         width: 100%;
-        border-bottom: 1px solid #BBBBBB;         
+        border-bottom: 1px solid #ccc;         
 }
 
 .ui-menu .ui-menu-item a
@@ -1396,7 +1433,10 @@ div #form-new
 
 .ui-dialog-titlebar
 {
-      height: 5px;    
+      padding: 0px !important;    
+}
+.ui-dialog-title{
+       padding-left: 5px !important;
 }
 
 .point a
@@ -1415,7 +1455,7 @@ div #form-new
 ::-webkit-scrollbar 
 { 
   width: 6px;
-  border-left: 1px solid #BBBBBB;
+  border-left: 1px solid #ccc;
 }
 
 
@@ -1458,7 +1498,7 @@ div #form-new
   padding: 1px;
 
   background: #ff6600;
-  border: 1px solid #ff3300;
+  border: 1px solid #ccc;
   color: #FFFFFF;
   text-align: center;
 
@@ -1539,25 +1579,24 @@ form
   position: relative;
   top: 62px;  
   margin-bottom: 62px;
-  border: 1px solid gray;
-  background-image: url("/gfx/tomalared.png");
+  border: 1px solid #ccc;
+  background-image: url("/gfx/tomalared.svg");
   background-repeat: no-repeat;
   background-position: center center;
-  background-color: rgba(255,255,255,0.9);
+  background-color: rgba(204,204,204,0.9);
 }
 
 
 div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix
 {
-  background: transparent !important;
-  border: 0px;
+  background-color: rgba(97, 115, 128, 0.84) !important;
+  border-bottom: 1px solid #ccc;
 }
 
 .ui-dialog .ui-dialog-content
 {
   padding: 0em 1em;
 }
-
 
 input.text.input
 {
@@ -1566,8 +1605,6 @@ input.text.input
   border: none;
   border-radius: none;
 }
-
-
 
 .timeline {
   float: right;

@@ -1,4 +1,11 @@
 = tomalared
+
+Esta versión puede contener bugs y error, ya que esta en fase de desarollo.
+Para adquirir una vercion estable:  https://github.com/ouruboros/tomalared
+
+This release may contain bugs and error, as this phase of development. 
+To obtain a stable vercion:  https://github.com/ouruboros/tomalared
+
 es un proyecto de software libre para crear una red social libre, 
 pseudo-descentralizada, potencialmente autogestionable, que permita
 a la gente comparir cualquier tipo de cosa que se genera en la red, 

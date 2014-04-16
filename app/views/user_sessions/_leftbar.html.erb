@@ -1,3 +1,4 @@
+<div class="aside_block">
 <span><%= t :titulo_notificaciones_tusgrupos %></span>
 
 <% if current_user.tags.count != 0 %>
@@ -16,8 +17,7 @@
 				<div class="imagen_aside" style="background: url(<%= foto_tag %>) no-repeat center; background-size: 100%;"></div>
 				<%= link_to "#{tag_board.name[0..11]}", "/post/tag/#{tag_board.name}", :class => "linkRemote tags-a", :rel => tag_board.posts.count, :title => "Post #{tag_board.name}"%>
 				<span class="iconos_aside">
-					<%= link_to "&#59168;".html_safe, "", :onclick => "chat();", :class => "linkRemote tags-a", :rel => tag_board.posts.count, :title => "Chat #{tag_board.name}" %>
-										
+					<a onclick ="chat('<%=tag_board.name%>');" class ="linkRemote tags-a" rel ="<%=tag_board.posts.count%>" title ="Chat #<%=tag_board.name%>">&#59168;</a>										
 				</span>
 			</li>	
 	<% end %>
@@ -25,7 +25,8 @@
 <% else %>
 	<h6>Usa el buscador o debajo en tendencia, para segir a grupos de tu interes</h6>
 <% end %>
-
+</div>
+<div class="aside_block">
 <span><%= t :titulo_notificaciones_tendencias %></span>
 <ul>	
 <% Tag.find_most_popular(7).each do |tag_board| -%>
@@ -42,8 +43,9 @@
 			<div class="imagen_aside" style="background: url(<%= foto_tag %>) no-repeat center; background-size: 100%;"></div>
 			<%= link_to "#{tag_board.name[0..11]}", "/post/tag/#{tag_board.name}", :class => "linkRemote tags-a", :rel => tag_board.posts.count, :title => "Post #{tag_board.name}"%>
 			<span class="iconos_aside">
-				<%= link_to "&#59168;".html_safe, "", :onclick => "chat();", :class => "linkRemote tags-a", :rel => tag_board.posts.count, :title => "Chat #{tag_board.name}" %>				
+				<a onclick ="chat('<%=tag_board.name%>');" class ="linkRemote tags-a" rel ="<%=tag_board.posts.count%>" title ="Chat #<%=tag_board.name%>">&#59168;</a>				
 			</span>			
 		</li>
 	<% end %>
 </ul>
+</div>

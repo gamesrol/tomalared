@@ -2,7 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points
 
 es:
-  version: TOMALRED.NET  v0.5 (Beta)
+  version: TOMALRED.NET  v0.7 (Alpha)
   basado: Basado en
   tomalared_net: tomalared  
   publicar: Publicar

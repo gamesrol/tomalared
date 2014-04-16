@@ -71,7 +71,6 @@ jQuery.fn.submitWithAjax = function() {
 };
 
 $(document).ready(function() {
-	$("#chat").toggle();
 	$("#delete").submitWithAjax();
 	$("#new").submitWithAjax();
 
@@ -97,7 +96,15 @@ $(document).ready(function() {
 	$("#form-new").dialog({
 		autoOpen : false,
 		resizable : false,
-		height : 180,
+		height : 160,
+		width : 600,
+		closeOnEscape : true
+	});
+	
+	$("#chat").dialog({
+		autoOpen : false,
+		resizable : false,
+		height : 377,
 		width : 600,
 		closeOnEscape : true
 	});
@@ -143,7 +150,6 @@ $(document).ready(function() {
 			$("#form-new").dialog("close");
 		}
 	});
-	
 	
 	$(document).on("click", ".open", function(event) {
 		var note_type = $(this).attr('id').replace("notif", "");
