@@ -1,9 +1,16 @@
 <script type="text/javascript" charset="utf-8">
 $(function() {
+
+	
+
   $('#target-photo').Jcrop({
     onChange: update_crop,
     onSelect: update_crop,
-    aspectRatio: 1
+    aspectRatio: 1,
+    bgOpacity: 0.5,    
+    bgColor: 'white',
+    bgFade: true,    
+    addClass: 'jcrop-light'    
   });
 
 
@@ -14,12 +21,6 @@ function update_crop(coords) {
   var rx = 100/coords.w;
   var ry = 100/coords.h; 
   
-  $('#preview-photo').css({
-		width: Math.round(rx * <%= @user.avatar_geometry(:large).width %>) + 'px',
-		height: Math.round(ry * <%= @user.avatar_geometry(:large).height %>) + 'px',
-		marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-		marginTop: '-' + Math.round(ry * coords.y) + 'px'
-  });
   var ratio = <%= @user.avatar_geometry(:original).width %> / <%= @user.avatar_geometry(:large).width %>;
   $("#crop_x").val(Math.round(coords.x * ratio));
   $("#crop_y").val(Math.round(coords.y * ratio));
@@ -30,28 +31,17 @@ function update_crop(coords) {
 
 });
 </script>
-<div id="user-edit" style="display: table; width: 100%;">
-		<div class="user-edit" style="display: table; width: 100%; text-align: center;padding: 10px;">
-			<div style="display: table; width: 100%;">
-				<h5>Recorta la foto</h5>
-				
-				<div style="float: left;">
-		   		<img src="<%=@user.photo.url(:large)%>" id="target-photo" />
-		   		</div>
-				<div style="width:100px;height:100px;overflow:hidden;float: left; " class="user-edit">
-		    	  <img src="<%=@user.photo.url%>" id="preview-photo" alt="Preview" class="jcrop-preview"  />
-		    	</div>
-		   	</div>
-		   
-	      <br/>
-		    <%= form_for @user do |form| %>
-		  		<% for attribute in [:crop_w, :crop_h, :crop_x, :crop_y] %>
-		  			<%= form.hidden_field attribute, :id => attribute %>
-		  		<% end %>
-		  		<p><%= form.submit "Recortar" %></p>
-			<% end %>
-		</div>	
-</div>
+	<div id="photo-recorte">	
+		<h5>Recorta la foto</h5>			
+		<img src="<%=@user.photo.url(:large)%>" id="target-photo" />		   		
+	  	<br/>
+	    <%= form_for @user do |form| %>
+	  		<% for attribute in [:crop_w, :crop_h, :crop_x, :crop_y] %>
+	  			<%= form.hidden_field attribute, :id => attribute %>
+	  		<% end %>
+	  		<p><%= form.submit "Recortar" %></p>
+		<% end %>
+	</div>
 
 
 

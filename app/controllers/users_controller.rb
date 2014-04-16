@@ -11,20 +11,108 @@ class UsersController < ApplicationController
   def create
     @user_session = UserSession.new    
     @usernew = User.new(params[:user])
-    # Saving without session maintenance to skip
-    # auto-login which can't happen here because
-    # the User has not yet been activated
-    if @usernew.save_without_session_maintenance 
-      @usernew.send_activation_instructions! 
-      if params[:user][:photo].blank?
+    if params[:accept]      
+      # Saving without session maintenance to skip
+      # auto-login which can't happen here because
+      # the User has not yet been activated
+      if @usernew.save_without_session_maintenance 
+        @usernew.send_activation_instructions! 
         flash[:notice] = "Tu cuenta ha sido creada. Por favor mira tu e-mail para ver las instrucciones de activacion!"
-        redirect_to @user
+        render :action => :new
       else
-        render :action => 'crop'
+        flash[:error] = "Hubo un problema creando tu usuario."
+        render :action => :new
       end
     else
-      flash[:notice] = "Hubo un problema creando tu usuario."
+      flash[:error] = "Debe aceptar las condiciones."
       render :action => :new
+    end
+  end
+
+
+  # up and delete a user
+  def delete_user
+    if params[:email] == current_user[:email]  
+      user = User.find(current_user[:id])      
+      user.destroy
+      flash[:notice] = "Usuario Borrado."
+      redirect_to '/'
+    else
+      flash[:error] = "Tienes que introducir tu email para verificar que quieres borrar la cuenta."
+      redirect_to '/home#cuenta'
+    end
+    
+  end
+
+  def show
+      redirect_to "/"
+  end
+  
+  def crop
+    @po = Post.new
+    @user = User.find(current_user[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def edit
+    @po = Post.new
+    @user = User.find(current_user[:id])
+    if params[:remote]
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    end
+  end
+
+  def updateImage
+    @po = Post.new    
+    @user = current_user
+    @user.photo = params[:user][:photo]
+    @user.save
+    flash[:notice] = "Tu cuenta ha sido actualizada!"
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update
+    @po = Post.new    
+    @user = current_user # makes our views "cleaner" and more consistent
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Tu cuenta ha sido actualizada!"
+      not_conf = NotificationsConfig.new
+      not_conf.user_id = current_user[:id]
+      if params[:user][:photo].blank?
+        if @user.cropping?
+          @user.photo.reprocess!
+        end
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # user list
+  def users
+    @users = User.find(:all, :order => 'id ASC')
+  end
+  
+  def list
+    if params[:id]
+      @users = User.find(:all, 
+                         :conditions => {:id => params[:id]}, 
+                         :order => 'id ASC')
+    else
+      @users = User.find(:all, :order => 'id ASC')
+    end
+    if params[:json]
+      list = @users.map {| u | Hash[ name: u.name ]}
+      render json: list
     end
   end
 
@@ -36,112 +124,10 @@ class UsersController < ApplicationController
     if @user.activate!
       UserSession.create(@user, false)
       @user.send_activation_confirmation!
-      redirect_to account_url
+      redirect_to '/'
     else
-      render :action => :new
+      render ':action => :new'
     end
-  end
-
-  def show
-      redirect_to "/post/list/"
-  end
-  
-   def crop
-    @po = Post.new
-    @user = User.find(current_user[:id])
-  end
-
-  def edit
-    @po = Post.new
-    @user = User.find(current_user[:id])
-  end
-
-  def update
-    @po = Post.new    
-    @user = current_user # makes our views "cleaner" and more consistent
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "Tu cuenta ha sido actualizada!"
-      if params[:user][:photo].blank?
-        if @user.cropping?
-          @user.photo.reprocess!
-        end
-        redirect_to '/post/user/'
-      else
-        render :action => 'crop'
-      end
-    else
-      render :action => :edit
-    end
-  end
- #
-  # user handling
-  #
-
-  # see if the poor user is authorized
-  def authorize
-    #redirect_to :controller => 'admin', :action => 'login' unless logged_in?
-  end
-
-  # certain actions only the big man can perform
-  def admin_user_only
-    #redirect_to :controller => 'admin', :action => 'password' unless is_admin_user?
-  end
-
-  # the big man
-  def is_admin_user?
-    (logged_in? && current_user[:id] == User::ADMIN_USER_ID)
-  end
-
-  # user list
-  def users
-    @users = User.find(:all, :order => 'id ASC')
-  end
-  
-  def list
-    @users = User.find(:all, :order => 'id ASC')
-  end
-
-  # ajaxly rename a user
-  def rename_user
-    if request.post?
-      user = User.find(params[:user_id])
-      user.name = params[:user_name]
-      user.save
-      render :text => user.name
-    end
-  end
-
-  # up and delete a user
-  def delete_user
-    user_id = params[:id]
-    user = User.find(user_id)
-
-    flash[:notice] = begin
-                       user.destroy
-                       Post.chown_posts(user_id,User::ADMIN_USER_ID)
-                       "Usuario Borrado."
-                     rescue CantDestroyAdminUser
-                       "No puede borrar al admin :("
-                     end
-
-    redirect_to :action => :users
-  end
-
-  def updatefoto
-   if request.post?
-					File.open("public/img/#{current_user[:id]}.jpg", "wb") do |file|
-						  file << open(params[:user_pic]).read
-					 end
-       end
-     redirect_to :action => 'show'
-   end
-
-  def updatedatos
-      user = User.find(current_user[:id])
-      user.name = params[:name]
-      user.email = params[:email]
-      user.save
-      redirect_to :action => 'show'
   end
 end
 

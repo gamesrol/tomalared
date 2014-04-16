@@ -4,19 +4,28 @@
 <% desc = content.split[0..-4].join(" ") -%>
 
 <div class="type-link">
-<a href="<%= link %>" target="_blank">
 	<% if img != "no-img" %>
-		<div class="post_link_photo">
-			<div class="mediano-muneco" style="background: url(<%= img %>) no-repeat center; background-size: 150%;"></div>
-		</div>
+			<div class="post_link_photo">
+				<div class="mediano-muneco" style="background: url(<%= img %>) no-repeat center; background-size: 150%;"></div>
+			</div>
+		
 	<% end %>
 
-	<div class="text-link"><br>
+	<div class="text-link">
 		<a href="<%= link %>" target="_blank">
-			<%= title.html_safe %></a>		
+			<%= title.html_safe %>
+		</a>		
+
+		<%if desc != nil%>
+			</br>
 			<%= desc.html_safe[0..150] %>
-			<p>
-		<%= host %></p>
+		<%end%>
+
+		<p>
+			<span class="timeCount">
+				<%= host %>
+			</spam>
+		</p>
 	</div>
 </div>
 

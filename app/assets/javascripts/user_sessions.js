@@ -1,26 +1,12 @@
 function pintarBotonesHeader() {
-  $(".icon-home").button({
-    icons : {
-      primary : "ui-icon-wrench"
-    },
-    text : false
-  });
-  $(".icon-exit").button({
-    icons : {
-      primary : "ui-icon-locked"
-    },
-    text : false
-  });
-  
-    $("#open-publicar").button({
-    icons : {
-      primary : "ui-icon-pencil"
-    },
-    text : false
-  });
+  $(".icon-home").button();
+  $(".icon-exit").button();
 };
 
 $(document).ready(function() {  
-          pintarBotonesHeader();
+          pintarBotonesHeader();          
 });
-        
+
+function refrescarFavoritos(){
+	$('aside').load('/favorite');	
+}

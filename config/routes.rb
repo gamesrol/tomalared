@@ -4,7 +4,8 @@ Fra::Application.routes.draw do
   #resources :sessions, :constraints => { :protocol => "https" }
 
 	#Rutas principales
-  root :to 	     => 'user_sessions#new', :as => :login
+  root :to 	     => "post#list"
+  match "/user" => 'user_sessions#new', :as => :login
 
 	#Login
   match '/login'      => "user_sessions#new", :as => :login
@@ -16,9 +17,13 @@ Fra::Application.routes.draw do
   match '/edit_me'    => 'users#edit'
   match '/updatefoto' => 'users#updatefoto'
   match '/updatedatos'=> 'users#updatedatos'
+  match '/updateImage'=> 'users#updateImage'
   match '/update' => 'users#update'
+  match '/delete_user' => 'users#delete_user'
+  match '/crop' => 'users#crop'
 
 	#Grupos
+	match '/favorite' => 'user_sessions#favorite'
   #Listados
 	#Funciones
 	match '/follow/:id' => 'tag#follow_tag'
@@ -31,8 +36,7 @@ Fra::Application.routes.draw do
   match '/network/note/:note_type'   => 'post#note'
 
   #Funciones
-  match '/save'  => 'post#save'
-  match '/edit'  => 'post#edit'
+  match '/save'  => 'post#save'  
   match '/delete'     => 'post#delete'
   match '/delete_tag' => 'post#delete_tag'
   match '/post/save' => 'post#save'
@@ -41,12 +45,10 @@ Fra::Application.routes.draw do
 			#comentarios
   match '/comment/new' => 'comment#new'
   match '/comment/delete/:id' => 'comment#delete'
+  match '/comment/list/:id' => 'comment#list'
 
 	#Likes
-  match '/like' => 'vote#like'
-  match '/dontlike' => 'vote#dontlike'
-  match '/change_to_like' => 'vote#change_to_like'
-  match '/change_to_dontlike' => 'vote#change_to_dontlike'
+  match '/vote' => 'vote#vote'
 
   match 'activate(/:activation_code)' => 'users#activate', :as => :activate_account
   match 'send_activation(/:user_id)' => 'users#send_activation', :as => :send_activation
@@ -54,8 +56,14 @@ Fra::Application.routes.draw do
 	#Share
   match '/share/:post_id' => 'share#share'
   match '/unshare/:post_id' => 'share#unshare'
+
+  #Interaction
+  match '/interaction/share/:post_id' => 'interaction#share'
   
   match '/notifications' => 'notification#list'
+  match '/notif/index/:note_type' => 'notification#index'
+  match '/notif/list' => 'notification#list'
+  match '/notif/read/:note_type' => 'notification#read'
 
 	#Buscador
   match '/search' => 'search#search'
@@ -75,8 +83,10 @@ Fra::Application.routes.draw do
   match 'password_resets/edit'=> 'password_resets#edit'
   match 'password_resets/create'=> 'password_resets#create'
   
-  match '/notif/list' => 'notification#list'
-  match '/users/crop' => 'users#crop'
+  match '/users/crop/' => 'users#crop'
+  
+  match '/desde' => 'application#calcular_fecha'
+  
   #resources
   resources :tags
   resources :comments

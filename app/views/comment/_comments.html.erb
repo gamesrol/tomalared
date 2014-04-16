@@ -1,37 +1,30 @@
-
 <%= div_for comment do %>
-	<% @user_ = User.find(comment.user_id)%>
+	<% @user_ = comment.user%>
     <article class="postContent">    	
-	    	<div class="comment-muneco" >
-	    		<div class="arrow-left-comment"></div>
-	    		<%= link_to image_tag( @user_.photo.url(:small)  , :alt => "Imagen de #{@user_.name}",  :onError=> "this.src='/img/default.jpg';"), "/post/user/#{@user_.name}", :class => "linkRemote comment-muneco-photo" %>
-	    	</div>
-	    
+
 	    <span class="mainComentContent">
-	    	<% if  current_user[:id] == comment.user_id %>
-			    <span class="iconBorrarComentario">
-			        <%= link_to 'Borrar', {:controller => 'comment', :action => 'delete', :id => comment.id},
-			        		 :data => { :confirm => "¿Borrar el comentario?"}, :class => "borrarComentario", :method => :delete, :remote => true %>
-			    </span>
-	   		<% end %>
-	   		 
-	   		 
-	    	<div id="text">
-	    		
-	   			<%= link_to "@#{@user_.name}" , {:controller => 'post', :action => 'list', :pagina => "user", :id => comment.user_id}, :class => "linkRemote user" %>, 
-	   			<%= distance_of_time_in_words(Time.now, Time.at(comment.created_at), false,  :highest_measure_only => true, :locale => "es")%> ago:
-	   			<br/>
+	    	<span class="iconos">
+		    	<% if  current_user[:id] == comment.user_id %>
+		    		<span class="ocultarIconosCm">
+					    <%= link_to '&#10060;'.html_safe, {:controller => 'comment', :action => 'delete', :id => comment.id}, :class => "borrarComentario", :method => :delete, :remote => true %>
+					</span>
+				<% end %>
+		   		<%if current_user%>
+		    		<%= render :partial => 'vote/vote_comment', :locals => {:comment_id => comment.id, :likes => comment.likes} %>
+	   			<% end %>
+	   		</span>
+	   		<div class="text">	    		
+	   			<%= link_to @user_.profile , {:controller => 'post', :action => 'list', :pagina => "user", :id => @user_.name}, :class => "linkRemote user", :title =>  "@#{@user_.name}" %>				
+	   			<span class="timeCount">
+					<%= hace_tanto_tiempo(comment.created_at,Time.now).html_safe %>				
+				</span>
+				<br/>
 	    		<%= text_parse(comment.body).html_safe %>	    		
     		</div>
-    		 	<footer class="postCommentsVote">
-	    		<%if current_user%>
-	    			<%= render :partial => 'vote/vote_comment', :locals => {:comment_id => comment.id} %>
-   				<% end %>  
-			</footer>    
-    	</span>
- 
+    	</span> 
+		<div class="comment-muneco">
+    		<%= link_to image_tag( @user_.photo.url(:small)  , :alt => "Imagen de #{@user_.name}"), "/post/user/#{@user_.name}", :class => "linkRemote comment-muneco-photo" %>
+    	</div>
 	</article>
-    
- 
-    
+	<input type="hidden" id="cmcreate_at_<%=comment.id%>" class="cmcreate_at" value="<%=comment.created_at%>" />
 <% end %>

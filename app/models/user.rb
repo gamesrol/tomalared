@@ -1,34 +1,33 @@
-#
-# Inspired by the authentication example in the Pragmatic Programmers'
-# Agile Web Development with Ruby on Rails.  Nothing too crazy.
-#
-
-class CantDestroyAdminUser < StandardError; end
-
 class User < ActiveRecord::Base
 
+  include Tenacity
+  
   acts_as_authentic do |c|
     c.login_field :name
     c.validate_email_field = false
   end
   
-  has_many :posts, :order => 'created_at DESC'
+  has_many :interactions, :dependent => :destroy
+  has_many :posts, :through => :interactions
   has_and_belongs_to_many :tags
-  has_many :comments, :order => "created_at DESC", :through => :posts
-  has_many :likes
+  has_many :comments, :order => "created_at DESC", :through => :posts, :dependent => :destroy
+  has_many :likes, :dependent => :destroy
+  has_many :shares, :dependent => :destroy
+  t_has_many :notifications
+  t_has_many :froms, :class_name => "Notification", :foreign_key => "from_id"
   attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :photo, :styles => { :small => "50x50", :medium => "210x210", :large => "500x500"}, :processors => [:cropper]
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  
-  before_destroy :dont_destroy_admin
   
   attr_accessible :id, :profile, :name, :email,:url, :bio, :password, :password_confirmation, :openid_identifier, :notifications, :photo
 
   validates_uniqueness_of :name
   validates_presence_of   :name
+  validates_presence_of   :profile
   validates_presence_of   :email
   validates_presence_of   :password, :on => :create
-
+  validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
+  
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end

@@ -1,0 +1,49 @@
+<span><%= t :titulo_notificaciones_tusgrupos %></span>
+
+<% if current_user.tags.count != 0 %>
+	<ul>		
+	<% current_user.tags[0..6].each do |tag_board| -%>
+	<%
+	      posts_image = tag_board.posts.where(:post_type => "image")
+          if posts_image
+            tag_foto = posts_image.sample()
+            if tag_foto
+            	foto_tag = tag_foto.content
+            end
+          end	
+	%>
+			<li class="li_aside">	
+				<div class="imagen_aside" style="background: url(<%= foto_tag %>) no-repeat center; background-size: 100%;"></div>
+				<%= link_to "#{tag_board.name[0..11]}", "/post/tag/#{tag_board.name}", :class => "linkRemote tags-a", :rel => tag_board.posts.count, :title => "Post #{tag_board.name}"%>
+				<span class="iconos_aside">
+					<%= link_to "&#59168;".html_safe, "", :onclick => "chat();", :class => "linkRemote tags-a", :rel => tag_board.posts.count, :title => "Chat #{tag_board.name}" %>
+										
+				</span>
+			</li>	
+	<% end %>
+	</ul>
+<% else %>
+	<h6>Usa el buscador o debajo en tendencia, para segir a grupos de tu interes</h6>
+<% end %>
+
+<span><%= t :titulo_notificaciones_tendencias %></span>
+<ul>	
+<% Tag.find_most_popular(7).each do |tag_board| -%>
+	<%
+	      posts_image = tag_board.posts.where(:post_type => "image")
+          if posts_image
+            tag_foto = posts_image.sample()
+            if tag_foto
+            	foto_tag = tag_foto.content
+            end
+          end	
+	%>
+		<li class="li_aside">
+			<div class="imagen_aside" style="background: url(<%= foto_tag %>) no-repeat center; background-size: 100%;"></div>
+			<%= link_to "#{tag_board.name[0..11]}", "/post/tag/#{tag_board.name}", :class => "linkRemote tags-a", :rel => tag_board.posts.count, :title => "Post #{tag_board.name}"%>
+			<span class="iconos_aside">
+				<%= link_to "&#59168;".html_safe, "", :onclick => "chat();", :class => "linkRemote tags-a", :rel => tag_board.posts.count, :title => "Chat #{tag_board.name}" %>				
+			</span>			
+		</li>
+	<% end %>
+</ul>

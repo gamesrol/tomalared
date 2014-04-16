@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
     @usernew = User.new
     if @user_session.save
       flash[:notice] = "Login successful!"
-      redirect_to '/post/list'
+      redirect_to '/'
     else
       render :action => :new
     end
@@ -23,6 +23,10 @@ class UserSessionsController < ApplicationController
     current_user_session.destroy
     flash[:notice] = "Logout successful!"
     redirect_to '/login'
+  end
+  
+  def favorite
+    render :partial => "user_sessions/leftbar"
   end
 end
 

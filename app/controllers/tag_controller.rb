@@ -43,8 +43,7 @@ class TagController < ApplicationController
     @tag_foto.each do |tag_foto|
       @foto_tag = tag_foto.content
     end
-    @users_tag =  Tag.find_by_sql(['SELECT u.*, tu.tag_id FROM tags_users as tu, users as u WHERE u.id = tu.user_id and tu.tag_id = ?', @tag])
-
+    @users_tag =  Tag.find(@tag).users
     respond_to do |format|
       format.js
     end
@@ -69,6 +68,20 @@ class TagController < ApplicationController
       format.js
     end
 
+  end
+  
+  def list
+    if params[:id]
+      @arr = Tag.find(:all, 
+                         :conditions => {:id => params[:id]}, 
+                         :order => 'id ASC')
+    else
+      @arr = Tag.find(:all, :order => 'id ASC')
+    end
+    if params[:json]
+      list = @arr.map {| o | Hash[ name: o.name ]}
+      render json: list
+    end
   end
 end
 

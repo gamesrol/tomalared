@@ -1,0 +1,72 @@
+	<div id="board-notifi">
+		<%= subscribe_to "/u/#{current_user[:id]}" %>
+		<script language="JavaScript">
+			PrivatePub.subscribe("/u/<%= current_user[:id] %>", function(data, channel) {
+				var note = data.note;
+				llegadaNotificacion(note);
+				if(note.resource_id == undefined){
+					llegadaPost(note);
+				}else{
+					llegadaComment(note);
+				}
+			});
+		</script>
+		
+		<div class='popbox popbox-mentions'>
+			<a class="open open-mentions" href="#" id="notif1" title="<%= t :titulo_notificaciones_menciones %>">&#128100;<%=cuentaNotificaciones(current_user.notifications, 1, 1).html_safe %></a>
+			<div class='collapse collapse-mentions'>
+				<div class='box box-mentions'>
+					<div class='arrow arrow-mentions'></div>
+					<div class="popbox-title">
+						<%= t :titulo_notificaciones_menciones %>
+					</div>
+					<div class='popbox-scroll' id="popbox-notif1">
+						<%=muestraNotificaciones(current_user.notifications, 1, 1).html_safe %>
+					</div>
+					<div class="popbox-footer">
+						<%= link_to "#{t :todas}", "/notif/index/1", :class => "popbox-a linkRemote" %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='popbox popbox-groups'>
+			<a class='open open-groups' href='#' id="notif3" title="<%= t :titulo_notificaciones_grupos %>">&#127758;<%=cuentaNotificaciones(current_user.notifications, 3, 1).html_safe %></a>
+			<div class='collapse collapse-groups'>
+				<div class='box box-groups'>
+					<div class='arrow arrow-groups'></div>
+					<div class="popbox-title">
+						<%= t :titulo_notificaciones_grupos %>
+					</div>
+					<div class='popbox-scroll'>
+						<div class="popbox-cajita" id="popbox-notif3">
+							<%=muestraNotificaciones(current_user.notifications, 3, 1).html_safe %>
+						</div>
+					</div>					
+					<div class="popbox-footer">
+						<%= link_to "#{t :todas}", "/notif/index/3", :class => "popbox-a linkRemote"  %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='popbox popbox-comments'>
+			<a class='open  open-comments' href='#' id="notif5" title="<%= t :titulo_notificaciones_comentarios %>">&#59190;<%=cuentaNotificaciones(current_user.notifications, 5, 1).html_safe %></a>
+			<div class='collapse collapse-comments'>
+				<div class='box box-comments'>
+					<div class='arrow arrow-comments'></div>					
+					<div class="popbox-title">
+						<%= t :titulo_notificaciones_comentarios %>
+					</div>
+					<div class='popbox-scroll'>
+						<div class="popbox-cajita" id="popbox-notif5">
+							<%=muestraNotificaciones(current_user.notifications, 5, 1).html_safe %>
+						</div>
+					</div>
+					<div class="popbox-footer">
+						<%= link_to "#{t :todas}", "/notif/index/5", :class => "popbox-a linkRemote"  %>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

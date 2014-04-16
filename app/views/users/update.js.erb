@@ -1,0 +1,21 @@
+<% if flash[:notice] %>
+	$("#main").prepend("<div id=\"notice\"><%=flash[:notice]%></div>");
+	$("#notice").fadeIn("fast", function(){
+		setTimeout(function() {
+			$("#notice").remove();
+		}, 2000);
+	});
+<% end %>
+<% if flash[:error] %>
+	$("#main").prepend("<div id=\"error\"><%=flash[:error]%></div>");
+	$("#error").fadeIn("fast", function(){
+		setTimeout(function() {
+			$("#error").remove();
+		}, 2000);
+	});
+<% end %>
+$("#marcofoto").html("<%= escape_javascript(link_to image_tag(current_user.photo.url(:medium) , :alt => "Tu imagen"), '/post/user', :class => "linkRemote") %>");
+$("#ventanaEmergente").dialog("close");
+$.address.value("/post/user");
+if ($("#cargandoPag").dialog("isOpen"))
+	$("#cargandoPag").dialog("close");
